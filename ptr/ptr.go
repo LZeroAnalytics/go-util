@@ -24,3 +24,8 @@ func EnforcePtr(obj any) (reflect.Value, error) {
 
 	return v.Elem(), nil
 }
+
+// To returns a pointer to the given value.
+func To[T any](v T) *T {
+	return &v
+}

@@ -70,3 +70,17 @@ func TestEnforcePtr(t *testing.T) {
 		})
 	}
 }
+
+func TestTo(t *testing.T) {
+	v1 := 1
+	r1 := ptr.To(v1)
+	if *r1 != v1 {
+		t.Fatalf("To(%v) returned %v", v1, *r1)
+	}
+
+	v2 := "test"
+	r2 := ptr.To(v2)
+	if *r2 != v2 {
+		t.Fatalf("To($%v) returned %v", v2, *r2)
+	}
+}
