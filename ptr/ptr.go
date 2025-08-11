@@ -6,26 +6,8 @@ import (
 	"reflect"
 )
 
-type enforceOptions struct {
-	allowNil bool
-}
-
-type EnforceOpt func(*enforceOptions)
-
-func AllowNil() EnforceOpt {
-	return func(o *enforceOptions) {
-		o.allowNil = true
-	}
-}
-
 // EnforcePtr enforces that a value must be a non-nil pointer and returns the value that the pointer references.
-func EnforcePtr(obj any, opts ...EnforceOpt) (reflect.Value, error) {
-	base := &enforceOptions{}
-
-	for _, opt := range opts {
-		opt(base)
-	}
-
+func EnforcePtr(obj any) (reflect.Value, error) {
 	v := reflect.ValueOf(obj)
 
 	if v.Kind() != reflect.Ptr {
@@ -36,7 +18,7 @@ func EnforcePtr(obj any, opts ...EnforceOpt) (reflect.Value, error) {
 		return reflect.Value{}, fmt.Errorf("expected a pointer, but got %v", v.Type())
 	}
 
-	if v.IsNil() && !base.allowNil {
+	if v.IsNil() {
 		return reflect.Value{}, errors.New("obj is a nil pointer")
 	}
 

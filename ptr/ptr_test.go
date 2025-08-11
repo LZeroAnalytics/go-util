@@ -7,11 +7,6 @@ import (
 	"github.com/lzeroanalytics/go-util/ptr"
 )
 
-func intPtr() *int {
-	v := 1
-	return &v
-}
-
 func TestEnforcePtr(t *testing.T) {
 	cases := []struct {
 		name     string
